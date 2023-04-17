@@ -1,5 +1,6 @@
 package com.sara.calculadoraimc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvAge: TextView
     private lateinit var  btnCalculate: Button
 
+    companion object{
+        const val IMC_KEY = "IMC_RESULT"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -89,15 +93,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnCalculate.setOnClickListener{
-            calculateIMC()
+            val result = calculateIMC()
+            navigateToResult(result)
         }
     }
 
-    private fun calculateIMC(){
+    private fun navigateToResult(result: Double){
+        val intent = Intent(this, ResultIMCActivity::class.java)
+        intent.putExtra(IMC_KEY, result)
+        startActivity(intent)
+    }
+    private fun calculateIMC():Double{
         val df = DecimalFormat("#.##")
         val imc = currentWeight/(currentHeight.toDouble()/100*currentHeight.toDouble()/100)
-        val result = df.format(imc).toDouble()
-        Log.i("Sara", "El imc es $imc")
+        return df.format(imc).toDouble()
+        //Log.i("Sara", "El imc es $imc")
     }
 
     private fun setAge(){
