@@ -4,4 +4,6 @@
     <string name="female">Mujer</string>
     <string name="image_of_a_female">Image of a female</string>
     <string name="image_of_a_man">Image of a man</string>
+    <string name="height">Altura</string>
+    <string name="initialSliderValue">120 cm</string>
 </resources>
